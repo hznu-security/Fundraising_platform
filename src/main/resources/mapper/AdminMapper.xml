@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.CSLab.demo.mapper.AdminMapper">
+    <insert id="insertAdmin">
+        insert into admin(`real_name`,`email`,`password`,`phone_number`)
+        values(#{realName},#{email},#{password},#{phoneNumber})
+    </insert>
+
+    <select id="getAdminByName" resultType="org.CSLab.demo.bean.Admin">
+        select * from admin where real_name=#{adminName}
+    </select>
+
+</mapper>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.CSLab.demo.mapper.ExpenseMapper">
+
+    <insert id="insertExpense" keyProperty="expenseId" useGeneratedKeys="true">
+        insert into `expense`(`project_key`,`amount`,`comment`,`create_time`)
+                    values(#{projectKey},#{amount},#{comment},#{createTime})
+    </insert>
+    <update id="updateExpense">
+        update `expense` set `expense_key` = #{expenseKey} where `expense_id` = #{expenseId}
+    </update>
+</mapper>

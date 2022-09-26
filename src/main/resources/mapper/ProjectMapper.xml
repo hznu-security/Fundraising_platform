@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.CSLab.demo.mapper.ProjectMapper">
+
+
+    <insert id="insertProject" keyProperty="projectId" useGeneratedKeys="true">
+        insert into `project` (`project_name`,`charity_id`,`comment`,
+                               `target`,`current`,`status`,`material_path`,
+                               `create_time`,`end_time`)
+                        values (#{projectName},#{charityId},#{comment},#{target},
+                                #{current},#{status},#{materialPath},#{createTime},#{endTime})
+    </insert>
+
+    <update id="updateProjectKey">
+        update `project` set `project_key`=#{projectKey} where `project_id`=#{projectId}
+    </update>
+
+    <update id="updateProjectStatus">
+        update `project` set `status` = #{newStatus} where `project_key`=#{projectKey}
+    </update>
+
+    <update id="updateProjectCurrent">
+        update `project` set `current`=`current`+ #{amount}
+        where `project_key`=#{projectKey}
+    </update>
+    <update id="updateProjectTotalExpense">
+        update `project` set `total_expense`=`total_expense`+#{amount}
+        where `project_key` = #{projectKey}
+    </update>
+
+    <select id="getProjectsNotAudited" resultType="org.CSLab.demo.bean.Project">
+        select `project_id`,`project_name`,`charity_id`,`project_key`,
+               `comment`,`target`,`material_path` ,`create_time` from `project` where `status` = '0'
+    </select>
+    <select id="selectProjectById" resultType="org.CSLab.demo.bean.Project">
+        select `project_key`,`project_name`,`charity_id`,`comment`,
+               `target`,`material_path`,`end_time`
+        from project where `project_id`=#{projectId}
+    </select>
+    <select id="getCharityIdByProjectKey" resultType="java.lang.Integer">
+        select `charity_id` from project where `project_key` = #{projectKey}
+    </select>
+</mapper>

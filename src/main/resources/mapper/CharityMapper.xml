@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.CSLab.demo.mapper.CharityMapper">
+    <insert id="insertCharity">
+        insert into `charity`(`charity_name`,`password`,`email`,`phone_number`,`certification_path`)
+        values(#{charityName},#{password},#{email},#{phoneNumber},#{certificationPath})
+    </insert>
+    <update id="certify">
+        update `charity`set `charity_id`=#{charityId},`id_number`=#{idNumber},`introduction`=#{introduction},`address`=#{address},
+                            `logo_path`=#{logoPath} , `certification_path`=#{certificationPath},`is_certified`=1  where `charity_id`=#{charityId}
+    </update>
+
+    <update id="audit">
+        update `charity` set `is_audited`=#{auditResult} where `charity_id`=#{charityId}
+    </update>
+
+    <select id="getCharityByCharityName" resultType="org.CSLab.demo.bean.Charity">
+        select * from charity where charity_name=#{charityName}
+    </select>
+
+    <select id="getUnderAuditedCharity" resultType="org.CSLab.demo.bean.Charity">
+        select `charity_id`,`charity_name`,`email`,`phone_number`,`certification_path`,`id_number`,
+               `address`,`introduction`,`logo_path` from charity where is_certified=1 and is_audited=0
+    </select>
+
+</mapper>

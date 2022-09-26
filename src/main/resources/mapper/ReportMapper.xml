@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.CSLab.demo.mapper.ReportMapper">
+    <insert id="insertReport">
+        insert into report(`user_id`,`comment`,`project_key`)
+        values (#{userId},#{comment},#{projectKey})
+    </insert>
+    <update id="updateReport">
+        update report set `result`=#{result},`status`=1
+    </update>
+
+    <select id="getReportList" resultType="org.CSLab.demo.bean.Report">
+        select * from report
+    </select>
+    <select id="getReportsByUserId" resultType="org.CSLab.demo.bean.Report">
+        select `report_id` ,`user_id`,`project_key`,`comment`,`result` ,`status`,`create_time`
+        from report where user_id=#{userId}
+    </select>
+    <select id="getReportUnsolved" resultType="org.CSLab.demo.bean.Report">
+        select `report_id` ,`user_id`,`project_key`,`comment`,`result` ,`status`,`create_time`
+        from report where status=0
+    </select>
+    <select id="selectReportById" resultType="org.CSLab.demo.bean.Report">
+        select * from report where `report_id`=#{reportId}
+    </select>
+
+</mapper>
